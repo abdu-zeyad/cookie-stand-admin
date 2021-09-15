@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { hours } from './Data'
 export default function Form(props) {
 
     function CookiesPostHandler(event) {
@@ -12,8 +12,25 @@ export default function Form(props) {
 
         }
 
+        const table = {
+            location: answeredQuestion.location,
+            hourlyRate: []
+        }
+
+        for (let i = 0; i < hours.length; i++) {
+            table.hourlyRate.push(5 * Math.floor(Math.random() * (answeredQuestion.MaxCus - answeredQuestion.MinCus)))
+        }
+        var s = 0
+        for (let i = 0; i < table.hourlyRate.length; i++) {
+            s += table.hourlyRate[i]
+        }
+        table.hourlyRate.push(s)
         props.setInfo(questions => [...questions, answeredQuestion])
+        props.setTable(t => [...t, table])
+
     }
+
+
 
     return (
         <div>

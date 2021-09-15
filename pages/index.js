@@ -7,6 +7,8 @@ import ReportResults from '../components/ReportResults';
 
 export default function Home() {
   const [printInfo, setInfo] = useState([]);
+  const [printTable, setTable] = useState([]);
+  console.log(printTable);
   return (
     <div className="">
       <Head>
@@ -16,10 +18,10 @@ export default function Home() {
 
       <main className="">
         <Header title="Cookies Stand Admin" />
-        <Form setInfo={setInfo} />
+        <Form setInfo={setInfo} setTable={setTable} />
 
-        {printInfo.length ? <ReportResults printInfo={printInfo} />
-          : <h2>No Cookie Stands Available</h2>}
+        {printInfo.length ? <ReportResults printInfo={printInfo} printTable={printTable} />
+          : <h2 className=' text-center '>No Cookie Stands Available</h2>}
 
         <Footer year='2021' />
 
