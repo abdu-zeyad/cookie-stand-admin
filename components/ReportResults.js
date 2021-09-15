@@ -2,8 +2,16 @@ import React from 'react'
 import { hours } from './Data'
 
 export default function ReportResults(props) {
-    const random_number = Math.floor(Math.random() * props.printInfo[0].MinCus)
 
+    const table = []
+    for (let i = 0; i < props.printInfo.length; i++) {
+        const row = []
+        for (let j = 0; j < hours.length; j++) {
+            row.push(Math.floor(Math.random() * (props.printInfo[i].MaxCus - props.printInfo[i].MinCus + 1) + props.printInfo[i].MinCus) * 17)
+        }
+        table.push(row)
+    }
+    console.log(table);
     return (
         <table className="" >
             <tr>
@@ -18,10 +26,22 @@ export default function ReportResults(props) {
                 return (
                     <tr>
                         <td>{data.location}</td>
-                        {hours.map(hour => {
-                            return (<th></th>
+                        {table.map((row, index) => {
+
+                            return (
+                                <td>
+                                    {
+                                        row.map((subitem, subindex) => {
+                                            return (<td>{subitem}</td>)
+
+                                        })
+                                    }
+                                </td>
+
                             )
+
                         })}
+
                     </tr>
 
                 )
