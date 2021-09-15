@@ -7,8 +7,6 @@ import ReportResults from '../components/ReportResults';
 
 export default function Home() {
   const [printInfo, setInfo] = useState([]);
-
-
   return (
     <div className="">
       <Head>
@@ -19,7 +17,10 @@ export default function Home() {
       <main className="">
         <Header title="Cookies Stand Admin" />
         <Form setInfo={setInfo} />
-        <ReportResults printInfo={printInfo} />
+
+        {printInfo.length ? <ReportResults printInfo={printInfo} />
+          : <h2>No Cookie Stands Available</h2>}
+
         <Footer year='2021' />
 
       </main>

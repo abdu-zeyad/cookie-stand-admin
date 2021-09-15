@@ -1,17 +1,31 @@
 import React from 'react'
+import { hours } from './Data'
 
 export default function ReportResults(props) {
+    const random_number = Math.floor(Math.random() * props.printInfo[0].MinCus)
+
     return (
-        <div>
-            <div className="text-center	">
-                <p>Report Table Coming Soon ... </p>
-                {props.printInfo && props.printInfo.map(printInfo => (
+        <table className="" >
+            <tr>
+                <th>location</th>
+                {hours.map(hour => {
+                    return (<th>{hour}</th>
+                    )
+                })}
+                <th>total</th>
+            </tr>
+            {props.printInfo.map(data => {
+                return (
+                    <tr>
+                        <td>{data.location}</td>
+                        {hours.map(hour => {
+                            return (<th></th>
+                            )
+                        })}
+                    </tr>
 
-                    <p> "location": "{printInfo.location}","minCustomers":{printInfo.MinCus},"maxCustomers":{printInfo.MaxCus},"avgCookies":{printInfo.AvgCokPH} </p>
-
-                ))}
-
-            </div>
-        </div>
+                )
+            })}
+        </table>
     )
 }
