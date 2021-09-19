@@ -5,28 +5,64 @@ export default function ReportResults(props) {
 
 
     return (
-        <table className=" mx-auto" >
-            <tr>
-                <th>location</th>
-                {hours.map(hour => {
-                    return (<th>{hour}</th>
-                    )
-                })}
-                <th>total</th>
-            </tr>
+        <table className='w-5/6 mx-auto mt-4 text-center border border-green-300 rounded-md'>
+
+            <thead className='bg-green-500 border border-green-300'>
+                <th className='px-2'>Location</th>
+                {
+                    props.workingHours.map(item => {
+                        return (
+                            <th>{item} </th>
+                        )
+                    })
+                }
+                <th>Totals</th>
+            </thead>
 
             <tbody>
-                {props.printTable.map(x => (
-                    <tr key={`${x.id}`}>
-                        <td className="p-3 pl-2 border bg-green-500">{x.location}</td>
-                        {x.hourlyRate.map(hour => (
-                            <td className="p-3 pl-2 border bg-green-500">{hour}</td>
-                        ))
-                        }
+                {
+                    props.report.map((store, idx) => {
 
-                    </tr>))
+                        const element =
+                            <>
+                                <td className='px-2 border border-black' >{store.location}</td>
+                                {
+                                    store.hourlySales.map(item => {
+                                        return (
+                                            <td className='border border-black'> {item} </td>
+                                        )
+                                    })
+                                }
+                                <td className='border border-black'>{store.total}</td>
+                            </>
+
+                        if (idx % 2 == 0) {
+                            return (
+                                <tr className='bg-green-400'>
+                                    {element}
+                                </tr>
+                            )
+                        } else {
+                            return (
+                                <tr className='bg-green-300'>
+                                    {element}
+                                </tr>
+                            )
+                        }
+                    })
                 }
             </tbody>
+
+            <tfoot className='bg-green-500'>
+                <td className='px-2 font-semibold border border-black'>Totals</td>
+                {
+                    props.totals.map(item => {
+                        return (
+                            <td className='font-semibold border border-black'>{item}</td>
+                        )
+                    })
+                }
+            </tfoot>
         </table>
     )
 }

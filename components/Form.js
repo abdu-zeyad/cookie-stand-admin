@@ -1,40 +1,13 @@
 import React from 'react'
-import { hours } from './Data'
+
 export default function Form(props) {
 
-    function CookiesPostHandler(event) {
-        event.preventDefault();
-        const answeredQuestion = {
-            location: event.target[0].value,
-            MinCus: event.target[1].value,
-            MaxCus: event.target[2].value,
-            AvgCokPH: event.target[3].value,
-
-        }
-
-        const table = {
-            location: answeredQuestion.location,
-            hourlyRate: []
-        }
-
-        for (let i = 0; i < hours.length; i++) {
-            table.hourlyRate.push(5 * Math.floor(Math.random() * (answeredQuestion.MaxCus - answeredQuestion.MinCus)))
-        }
-        var s = 0
-        for (let i = 0; i < table.hourlyRate.length; i++) {
-            s += table.hourlyRate[i]
-        }
-        table.hourlyRate.push(s)
-        props.setInfo(questions => [...questions, answeredQuestion])
-        props.setTable(t => [...t, table])
-
-    }
 
 
 
     return (
         <div>
-            <form className=" w-3/4 p-2 mx-auto my-4 bg-green-200" onSubmit={CookiesPostHandler}>
+            <form className=" w-3/4 p-2 mx-auto my-4 bg-green-200" onSubmit={props.CookiesPostHandler}>
                 <p className='text-xl  text-center  text-green-800'>Create  Cookies Stand  </p>
                 <div className=" flex justify-start ">
                     <p className='my-3' >Location</p>
