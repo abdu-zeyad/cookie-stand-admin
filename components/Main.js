@@ -13,7 +13,6 @@ export default function Main() {
 
     const { resources, loading, createResource, deleteResource } = useResource();
 
-
     function onCreate(newstore) {
         setStore(newstore)
 
@@ -24,13 +23,12 @@ export default function Main() {
     useEffect(() => {
         if (store) {
             sumtatals()
-
         }
     }, [store, resources])
 
+    console.log(store);
 
     const sumtatals = () => {
-        console.log(store);
         const sumtotal = []
         for (let i = 0; i <= store.length - 1; i++) {
             for (let j = 0; j <= store[i].hourly_sales.length - 1; j++)
@@ -41,9 +39,7 @@ export default function Main() {
                 }
         }
         setTotal([sumtotal, sumtotal.reduce((a, b) => a + b, 0)])
-        console.log(total);
     }
-    console.log(store, total);
 
     return (
         <>

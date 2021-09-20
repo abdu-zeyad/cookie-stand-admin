@@ -2,7 +2,7 @@ import axios from 'axios'
 import useSWR from 'swr'
 
 // export const apiUrl = process.env.NEXT_PUBLIC_RESOURCE_URL;
-export const apiUrl = 'https://cookiestands.herokuapp.com/api/v1/cookies/';
+export const apiUrl = 'https://cookiestands.herokuapp.com/api/v1/cookie-stands/';
 import { useAuth } from '../contexts/auth'
 
 export default function useResource() {
@@ -10,7 +10,6 @@ export default function useResource() {
     const { tokens, logout } = useAuth()
 
     const { data, error, mutate } = useSWR([apiUrl, tokens], fetchResource);
-
     async function fetchResource(url) {
 
         if (!tokens) {
