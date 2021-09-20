@@ -1,68 +1,90 @@
-import React from 'react'
-import { hours } from './Data'
+import useResource from '../hooks/useResource';
+import React, { useState, useEffect } from "react";
 
-export default function ReportResults(props) {
+
+export default function ReportTable({ store, total }) {
+
+    const data = ['Location', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', 'Totals']
+    const { resources, loading, createResource, deleteResource } = useResource();
+
+    const [totalByRow, setTotalByRow] = useState([])
+    let total_by_row = []
+    const sumTotalByRow = ((total) => {
+        let x = 0
+        store.map((item, idx) => {
+
+            item.hourly_sales.map((hour => {
+                x += hour
+            }))
+            total_by_row.push(x)
+            x = 0
+        })
+
+        setTotalByRow(total_by_row)
+        console.log(totalByRow);
+
+
+    })
+
+    useEffect(() => {
+        //  console.log(totalByRow);
+        sumTotalByRow()
+        // console.log(store);
+    }, [store])
+
+
 
 
     return (
-        <table className='w-5/6 mx-auto mt-4 text-center border border-green-300 rounded-md'>
+        <>
 
-            <thead className='bg-green-500 border border-green-300'>
-                <th className='px-2'>Location</th>
-                {
-                    props.workingHours.map(item => {
-                        return (
-                            <th>{item} </th>
-                        )
-                    })
-                }
-                <th>Totals</th>
-            </thead>
+            {store.length ?
 
-            <tbody>
-                {
-                    props.report.map((store, idx) => {
+                <table className="mx-auto w-1/2 my-4">
+                    <thead>
 
-                        const element =
-                            <>
-                                <td className='px-2 border border-black' >{store.location}</td>
+                        <tr className='bg-green-500' >
+                            {data.map(item =>
+
+                                <th className="border border-gray-70">{item}</th>
+
+                            )
+
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {store.map((item, idx) => (
+                            <tr className={`bg-green-${idx % 2 ? 400 : 300}`} key={`${idx}`}>
+                                <td className="pl-2 border border-gray-700">{item.location} <button onClick={() => deleteResource(item.id)} className="flex  bg-red-700">🗑</button></td>
                                 {
-                                    store.hourlySales.map(item => {
-                                        return (
-                                            <td className='border border-black'> {item} </td>
-                                        )
-                                    })
-                                }
-                                <td className='border border-black'>{store.total}</td>
-                            </>
 
-                        if (idx % 2 == 0) {
-                            return (
-                                <tr className='bg-green-400'>
-                                    {element}
-                                </tr>
-                            )
-                        } else {
-                            return (
-                                <tr className='bg-green-300'>
-                                    {element}
-                                </tr>
-                            )
-                        }
-                    })
-                }
-            </tbody>
+                                    item.hourly_sales.map((hour, key) =>
+                                        <td key={`${key}`} className="pl-2 border border-gray-700">{hour}</td>
+                                    )}
+                                <td className="pl-2 border border-gray-700">{totalByRow[idx]}</td>
+                            </tr>))}
 
-            <tfoot className='bg-green-500'>
-                <td className='px-2 font-semibold border border-black'>Totals</td>
-                {
-                    props.totals.map(item => {
-                        return (
-                            <td className='font-semibold border border-black'>{item}</td>
-                        )
-                    })
-                }
-            </tfoot>
-        </table>
+                        <tr className='bg-green-500'>
+                            <th className="pl-2 border border-gray-700" >Totals</th>
+                            {
+                                total[0].map((item, key) =>
+                                    <td key={`${key}`} className="pl-2 border border-gray-700" > {item}</td>
+                                )}
+                            <td className="pl-2 border border-gray-700" > {total[1]}</td>
+
+                        </tr>
+                    </tbody>
+                </table> :
+                <p className=" flex items-center justify-center text-xl h-12  "	>
+                    No Cookie Stand Available
+                </p>
+
+            }
+
+
+        </>
     )
+
+
 }

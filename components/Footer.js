@@ -1,13 +1,10 @@
-import React from 'react'
+export default function Footer({ reports }) {
 
-export default function Footer(props) {
     return (
-        <div>
-            <footer className="p-4 mt-8 bg-green-500 text-black-50">
-                <nav>
-                    @{props.year}
-                </nav>
-            </footer>
-        </div>
+        <footer className="flex items-center justify-between p-4 bg-green-500 text-gray-50">
+            <h1 className="text-xl"> {reports.length} Locations World Wide</h1>
+            <h1 className="text-xl">2021</h1>
+
+        </footer>
     )
 }
